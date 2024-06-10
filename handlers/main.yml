@@ -1,0 +1,12 @@
+---
+- name: Restart nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+  when: "'nginx' in ansible_services"
+
+- name: Restart apache
+  ansible.builtin.service:
+    name: httpd  # Change this to apache if using Apache on systems like CentOS
+    state: restarted
+  when: "'apache2' in ansible_services"

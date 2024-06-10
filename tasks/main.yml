@@ -1,0 +1,7 @@
+---
+- name: Copy SSL certificates to destination
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ ssl_dest_dir }}/{{ item | basename }}"
+    mode: "{{ (item | regex_search('.crt$')) | ternary('0644', '0600') }}"
+  loop: "{{ query('fileglob', 'files/ssl/*.crt') + query('fileglob', 'files/ssl/*.key') }}"
